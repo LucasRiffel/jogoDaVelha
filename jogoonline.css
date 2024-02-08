@@ -1,0 +1,24 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: rgb(252, 252, 15);
+}
+
+.botao-modos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: rgba(251, 253, 253, 0.6);
+    border: 1px solid black;
+    width: 55px;
+    height: 20px;
+    color: black;
+}
+
+.botao-modos > a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,39 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(252, 252, 15);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.titulo {
+    display: flex;
+    
+}
+
+.titulo-principal {
+    font-size: 40px;
+}
+
+.modos {
+    display: grid;
+}
+
+.botao-modos {
+    margin: 1.5px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: rgba(251, 253, 253, 0.6);
+    border: 1px solid black;
+    width: 175px;
+    height: 60px;
+    color: black;
+}
+
+.botao-modos > a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
