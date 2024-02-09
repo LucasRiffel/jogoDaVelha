@@ -1,6 +1,11 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
 body {
-    padding: 0px;
-    margin: 0px;
     background-color: rgb(252, 252, 15);
 }
 
@@ -13,12 +18,81 @@ body {
     padding: 15px;
     background-color: rgba(251, 253, 253, 0.6);
     border: 1px solid black;
-    width: 55px;
-    height: 20px;
-    color: black;
+    height: 30px;
+    color: black;   
 }
 
 .botao-modos > a {
     text-decoration: none;
     color: black;
+}
+
+.divTitulos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-top: 30%;
+}
+
+.titulo {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    padding: 40px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.521);
+    
+}
+
+#caixa-jogo {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0px;
+}
+
+.caixa {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    font-size: 120px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+}
+
+.caixa:nth-child(3n) {
+    border-right: none;
+}
+.caixa:nth-child(6) ~ .caixa {
+    border-bottom: none;
+} 
+
+.botao-reiniciar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: rgba(251, 253, 253, 0.6);
+    border: 1px solid black;
+    height: 30px;
+    color: black;   
+}
+
+.botao-reiniciar:hover {
+    background-color: rgba(61, 61, 61, 0.678);
+    transition: background-color 1.0s , color 0.9s;
+    color: rgb(255, 255, 255);
+    transform: scale(1.05);
+    border: 1px solid white;
 }
