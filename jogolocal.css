@@ -7,6 +7,7 @@
 
 body {
     background-color: rgb(252, 252, 15);
+    
 }
 
 .botao-modos {
@@ -28,18 +29,12 @@ body {
 }
 
 .divTitulos {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
     padding-top: 30%;
 }
 
 .titulo {
     color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .container {
@@ -47,9 +42,9 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: baseline;
     flex-direction: column;
     color: rgba(0, 0, 0, 0.521);
-    
 }
 
 #caixa-jogo {
@@ -79,7 +74,6 @@ body {
 .botao-reiniciar {
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: 1.5px;
     border-radius: 5px;
     padding: 15px;
