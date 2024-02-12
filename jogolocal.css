@@ -30,7 +30,7 @@ body {
 
 .divTitulos {
     padding: 20px;
-    padding-top: 30%;
+    margin: 0;
 }
 
 .titulo {
@@ -77,15 +77,27 @@ body {
     margin: 1.5px;
     border-radius: 5px;
     padding: 15px;
-    background-color: rgba(206, 206, 206, 0.6);
+    background-color: rgba(223, 223, 223, 0.6);
     border: 1px solid black;
     height: 30px;
     color: black;   
 }
 
+
 .botao-reiniciar:hover {
-    background-color: rgba(214, 214, 214, 0.678);
+    background-color: rgb(212, 212, 212);
     transition: background-color 1.0s;
     color: rgb(0, 0, 0);
     border: 1px solid rgb(255, 255, 255);
+}
+
+.placar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.placar > div {
+    padding-right: 15px;
 }

@@ -5,6 +5,15 @@ const placarXElemento = document.getElementById('placar-x');
 const placarOElemento = document.getElementById('placar-o');
 const placarVelhasElemento = document.getElementById('placar-velhas');
 
+function sortearJogadorInicial() {
+    const numeroAleatorio = Math.random();
+    
+    if (numeroAleatorio < 0.5) {
+        return 'X'; 
+    } else {
+        return 'O'; 
+    }
+}
 
 const combinacoesVitoria = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -12,11 +21,10 @@ const combinacoesVitoria = [
     [0, 4, 8], [2, 4, 6]
 ];
 
-let jogadorAtual = 'X';
+let jogadorAtual = sortearJogadorInicial();
 let placarX = 0;
 let placarO = 0;
 let placarVelhas = 0;
-let ultimoVencedor = '';
 
 function verificarEmpate() {
     return [...quadrados].every(quadrado => quadrado.textContent);
@@ -42,6 +50,7 @@ function verificarVencedor() {
     return false;
 }
 
+atualizarJogadaAtual();
 atualizarPlacar();
 
 botaoReiniciar.addEventListener('click', () => {
@@ -51,15 +60,21 @@ quadrados.forEach(quadrado => {
     quadrado.addEventListener('click', () => {
         if (!quadrado.textContent) {
             quadrado.textContent = jogadorAtual;
-
             if (verificarVencedor()) {
+                if (jogadorAtual === 'X') {
+                    placarX++;
+                } else {
+                    placarO++;
+                }
+                atualizarPlacar();
                 alert(`O jogador ${jogadorAtual} venceu!`);
                 reiniciarJogo();
             } else if (verificarEmpate()) {
+                placarVelhas++;
+                atualizarPlacar();
                 alert('Deu velha!');
                 reiniciarJogo();
             } else {
-
                 jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
                 atualizarJogadaAtual();
             }
@@ -68,8 +83,11 @@ quadrados.forEach(quadrado => {
 });
 
 function reiniciarJogo() {
-
+    jogadorAtual = sortearJogadorInicial();
+    
     quadrados.forEach(quadrado => {
         quadrado.textContent = '';
-    });}
-    
+    });
+
+    atualizarJogadaAtual();
+}
