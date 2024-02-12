@@ -5,6 +5,9 @@ const placarXElemento = document.getElementById('placar-x');
 const placarOElemento = document.getElementById('placar-o');
 const placarVelhasElemento = document.getElementById('placar-velhas');
 
+const somX = new Audio('../audio/audio-x-o.wav');
+const somO = new Audio('../audio/audio-x-o.wav');
+
 function sortearJogadorInicial() {
     const numeroAleatorio = Math.random();
     
@@ -25,6 +28,14 @@ let jogadorAtual = sortearJogadorInicial();
 let placarX = 0;
 let placarO = 0;
 let placarVelhas = 0;
+
+function reproduzirSom() {
+    if (jogadorAtual === 'X') {
+        somX.play();
+    } else {
+        somO.play();
+    }
+}
 
 function verificarEmpate() {
     return [...quadrados].every(quadrado => quadrado.textContent);
@@ -60,6 +71,7 @@ quadrados.forEach(quadrado => {
     quadrado.addEventListener('click', () => {
         if (!quadrado.textContent) {
             quadrado.textContent = jogadorAtual;
+            reproduzirSom();
             if (verificarVencedor()) {
                 if (jogadorAtual === 'X') {
                     placarX++;
