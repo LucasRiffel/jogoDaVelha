@@ -5,8 +5,8 @@ const placarXElemento = document.getElementById('placar-x');
 const placarOElemento = document.getElementById('placar-o');
 const placarVelhasElemento = document.getElementById('placar-velhas');
 
-const somX = new Audio('../audio/audio-x-o.wav');
-const somO = new Audio('../audio/audio-x-o.wav');
+const somX = new Audio('./audio/audio-x-o.wav');
+const somO = new Audio('./audio/audio-x-o.wav');
 
 function sortearJogadorInicial() {
     const numeroAleatorio = Math.random();
