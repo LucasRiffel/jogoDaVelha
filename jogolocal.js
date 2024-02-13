@@ -4,17 +4,18 @@ const jogadaAtualElemento = document.getElementById('jogada-atual');
 const placarXElemento = document.getElementById('placar-x');
 const placarOElemento = document.getElementById('placar-o');
 const placarVelhasElemento = document.getElementById('placar-velhas');
+const botaoTelaCheia = document.getElementById('botao-tela-cheia');
 
 const somX = new Audio('./audio/audio-x-o.wav');
 const somO = new Audio('./audio/audio-x-o.wav');
 
 function sortearJogadorInicial() {
     const numeroAleatorio = Math.random();
-    
+
     if (numeroAleatorio < 0.5) {
-        return 'X'; 
+        return 'X';
     } else {
-        return 'O'; 
+        return 'O';
     }
 }
 
@@ -96,10 +97,55 @@ quadrados.forEach(quadrado => {
 
 function reiniciarJogo() {
     jogadorAtual = sortearJogadorInicial();
-    
+
     quadrados.forEach(quadrado => {
         quadrado.textContent = '';
     });
 
     atualizarJogadaAtual();
 }
+function entrarModoTelaCheia() {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+
+function sairModoTelaCheia() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'f11') { 
+        if (!document.fullscreenElement) {
+            entrarModoTelaCheia();
+        } else {
+            sairModoTelaCheia();
+        }
+    }
+});
+
+function toggleTelaCheia() {
+    if (!document.fullscreenElement) {
+        entrarModoTelaCheia();
+    } else {
+        sairModoTelaCheia();
+    }
+}
+
+botaoTelaCheia.addEventListener('click', toggleTelaCheia);

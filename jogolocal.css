@@ -28,6 +28,19 @@ body {
     color: black;
 }
 
+.tela-cheia {
+    margin: 1.5px;
+}
+
+.botao-tela-cheia {
+    color: black;
+    background-color: rgba(223, 223, 223, 0.6);
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 30px;
+    padding: 2px;
+}
+
 .divTitulos {
     padding: 20px;
     margin: 0;
@@ -44,7 +57,7 @@ body {
     align-items: center;
     justify-content: baseline;
     flex-direction: column;
-    color: rgba(0, 0, 0, 0.521);
+    color: rgba(0, 0, 0, 0.521); 
 }
 
 #caixa-jogo {
@@ -59,10 +72,12 @@ body {
     width: 100px;
     display: flex;
     align-items: center;
+    justify-content: center;
     font-size: 120px;
     border-right: 2px solid;
     border-bottom: 2px solid;
 }
+
 
 .caixa:nth-child(3n) {
     border-right: none;
@@ -83,7 +98,6 @@ body {
     color: black;   
 }
 
-
 .botao-reiniciar:hover {
     background-color: rgb(212, 212, 212);
     transition: background-color 1.0s;
@@ -101,3 +115,4 @@ body {
 .placar > div {
     padding-right: 15px;
 }
+
