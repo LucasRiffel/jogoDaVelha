@@ -59,9 +59,9 @@ function atualizarJogadaAtual() {
 }
 
 function atualizarPlacar() {
-    placarXElemento.textContent = `Vitórias X: ${placarX}`;
-    placarOElemento.textContent = `Vitórias O: ${placarO}`;
-    placarVelhasElemento.textContent = `Empates: ${placarVelhas}`;
+    placarXElemento.textContent = `Suas Vitórias: ${placarX}`;
+    placarOElemento.textContent = `Vitórias da IA: ${placarO}`;
+    placarVelhasElemento.textContent = `Velhas: ${placarVelhas}`;
 }
 
 function verificarVencedor() {
@@ -94,7 +94,7 @@ quadrados.forEach(quadrado => {
                     placarO++;
                 }
                 atualizarPlacar();
-                alert(`O jogador ${jogadorAtual} venceu!`);
+                alert(`Você ganhou!`);
                 reiniciarJogo();
             } else if (verificarEmpate()) {
                 placarVelhas++;
