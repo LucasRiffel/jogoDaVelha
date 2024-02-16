@@ -8,52 +8,6 @@ const placarVelhasElemento = document.getElementById('placar-velhas');
 const somX = new Audio('./audio/audio-x-o.wav');
 const somO = new Audio('./audio/audio-x-o.wav');
 
-function minimax(tabuleiro, profundidade, maximizandoJogador, alfa, beta) {
-    if (verificarVencedor()) {
-        return (maximizandoJogador ? -1 : 1) + Math.random() * 0.01;
-    } else if (verificarEmpate()) {
-        return 0;
-    }
-    if (profundidade === 0) {
-        return 0;
-    }
-
-    if (maximizandoJogador) {
-        let melhorPonto = -Infinity;
-        for (let i = 0; i < tabuleiro.length; i++) {
-            if (tabuleiro[i] === '') {
-                tabuleiro[i] = 'O';
-                let ponto = minimax(tabuleiro, profundidade + 1, false, alfa, beta);
-                tabuleiro[i] = '';
-                melhorPonto = Math.max(ponto, melhorPonto);
-                alfa = Math.max(alfa, ponto);
-                if (beta <= alfa) {
-                    break;
-                }
-            }
-        }
-
-        return melhorPonto;
-    } else {
-        let melhorPonto = Infinity;
-        for (let i = 0; i < tabuleiro.length; i++) {
-            if (tabuleiro[i] === '') {
-                tabuleiro[i] = 'X';
-                let ponto = minimax(tabuleiro, profundidade + 1, true, alfa, beta);
-                tabuleiro[i] = '';
-                melhorPonto = Math.min(ponto, melhorPonto);
-                beta = Math.min(beta, ponto);
-                if (beta <= alfa) {
-                    break;
-                }
-            }
-        }
-        return melhorPonto;
-    }
-}
-
-
-
 function fazerMovimentoIA() {
     const index = movimentoIA(Array.from(quadrados).map(cell => cell.textContent));
     if (index >= 0 && index < quadrados.length) {
@@ -158,24 +112,51 @@ quadrados.forEach(quadrado => {
     });
 });
 
-function movimentoIA(tabuleiro) {
-    let melhorMovimento = -1;
-    let melhorPonto = -Infinity;
+    quadrados = document.querySelectorAll('.caixa');
+        quadrados.forEach(quadrado => {
+        quadrado.addEventListener('click', () => {
+            if (!quadrado.textContent) {
+                quadrado.textContent = jogadorAtual;
+                reproduzirSom();
+                if (verificarVencedor()) {
+                    if (jogadorAtual === 'X') {
+                        placarX++;
+                    } else {
+                        placarO++;
+                    }
+                    atualizarPlacar();
+                    alert(`O jogador ${jogadorAtual} venceu!`);
+                    reiniciarJogo();
+                } else if (verificarEmpate()) {
+                    placarVelhas++;
+                    atualizarPlacar();
+                    alert('Deu velha!');
+                    reiniciarJogo();
+                } else {
+                    jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
+                    atualizarJogadaAtual();
+                    if (jogadorAtual === 'O') {
+                        fazerMovimentoIA();
+                    }
+                }
+            }
+        });
+    });
 
+function movimentoIA(tabuleiro) {
+    let posicoesDisponiveis = [];
     for (let i = 0; i < tabuleiro.length; i++) {
         if (tabuleiro[i] === '') {
-            tabuleiro[i] = 'O';
-            let ponto = minimax(tabuleiro, 0, false);
-            tabuleiro[i] = '';
-
-            if (ponto > melhorPonto) {
-                melhorPonto = ponto;
-                melhorMovimento = i;
-            }
+            posicoesDisponiveis.push(i);
         }
     }
 
-    return melhorMovimento;
+    if (posicoesDisponiveis.length > 0) {
+        let indiceAleatorio = Math.floor(Math.random() * posicoesDisponiveis.length);
+        return posicoesDisponiveis[indiceAleatorio];
+    } else {
+        return -1;
+    }
 }
 
 
