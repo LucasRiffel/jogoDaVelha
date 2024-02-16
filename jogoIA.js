@@ -8,10 +8,13 @@ const placarVelhasElemento = document.getElementById('placar-velhas');
 const somX = new Audio('./audio/audio-x-o.wav');
 const somO = new Audio('./audio/audio-x-o.wav');
 
-function minimax(tabuleiro, profundidade, maximizandoJogador) {
+function minimax(tabuleiro, profundidade, maximizandoJogador, alfa, beta) {
     if (verificarVencedor()) {
-        return maximizandoJogador ? -1 : 1;
+        return (maximizandoJogador ? -1 : 1) + Math.random() * 0.01;
     } else if (verificarEmpate()) {
+        return 0;
+    }
+    if (profundidade === 0) {
         return 0;
     }
 
@@ -20,20 +23,29 @@ function minimax(tabuleiro, profundidade, maximizandoJogador) {
         for (let i = 0; i < tabuleiro.length; i++) {
             if (tabuleiro[i] === '') {
                 tabuleiro[i] = 'O';
-                let ponto = minimax(tabuleiro, profundidade + 1, false);
+                let ponto = minimax(tabuleiro, profundidade + 1, false, alfa, beta);
                 tabuleiro[i] = '';
                 melhorPonto = Math.max(ponto, melhorPonto);
+                alfa = Math.max(alfa, ponto);
+                if (beta <= alfa) {
+                    break;
+                }
             }
         }
+
         return melhorPonto;
     } else {
         let melhorPonto = Infinity;
         for (let i = 0; i < tabuleiro.length; i++) {
             if (tabuleiro[i] === '') {
                 tabuleiro[i] = 'X';
-                let ponto = minimax(tabuleiro, profundidade + 1, true);
+                let ponto = minimax(tabuleiro, profundidade + 1, true, alfa, beta);
                 tabuleiro[i] = '';
                 melhorPonto = Math.min(ponto, melhorPonto);
+                beta = Math.min(beta, ponto);
+                if (beta <= alfa) {
+                    break;
+                }
             }
         }
         return melhorPonto;
@@ -41,11 +53,14 @@ function minimax(tabuleiro, profundidade, maximizandoJogador) {
 }
 
 
+
 function fazerMovimentoIA() {
     const index = movimentoIA(Array.from(quadrados).map(cell => cell.textContent));
-    quadrados[index].textContent = 'O';
-    quadrados[index].classList.add('jogador-O');
-    reproduzirSom();
+    if (index >= 0 && index < quadrados.length) {
+        console.log(quadrados[index]);
+        quadrados[index].textContent = 'O';
+        reproduzirSom();
+    }
     if (verificarVencedor()) {
         placarO++;
         atualizarPlacar();
@@ -62,23 +77,13 @@ function fazerMovimentoIA() {
     }
 }
 
-function sortearJogadorInicial() {
-    const numeroAleatorio = Math.random();
-
-    if (numeroAleatorio < 0.5) {
-        return 'X';
-    } else {
-        return 'O';
-    }
-}
-
 const combinacoesVitoria = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6]
 ];
 
-let jogadorAtual = sortearJogadorInicial();
+let jogadorAtual = 'X';
 let placarX = 0;
 let placarO = 0;
 let placarVelhas = 0;
@@ -121,6 +126,7 @@ atualizarPlacar();
 botaoReiniciar.addEventListener('click', () => {
     reiniciarJogo();
 });
+
 quadrados.forEach(quadrado => {
     quadrado.addEventListener('click', () => {
         if (!quadrado.textContent) {
@@ -144,10 +150,10 @@ quadrados.forEach(quadrado => {
             } else {
                 jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
                 atualizarJogadaAtual();
-                if (jogadorAtual === 'O') {
-                    fazerMovimentoIA();
-                }
             }
+        }
+        if (jogadorAtual === 'O') {
+            fazerMovimentoIA();
         }
     });
 });
@@ -159,7 +165,6 @@ function movimentoIA(tabuleiro) {
     for (let i = 0; i < tabuleiro.length; i++) {
         if (tabuleiro[i] === '') {
             tabuleiro[i] = 'O';
-            quadrados[i].classList.add('jogador-O');
             let ponto = minimax(tabuleiro, 0, false);
             tabuleiro[i] = '';
 
@@ -173,8 +178,9 @@ function movimentoIA(tabuleiro) {
     return melhorMovimento;
 }
 
+
 function reiniciarJogo() {
-    jogadorAtual = sortearJogadorInicial();
+    jogadorAtual = 'X';
 
     quadrados.forEach(quadrado => {
         quadrado.textContent = '';
