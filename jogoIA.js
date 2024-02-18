@@ -81,7 +81,7 @@ botaoReiniciar.addEventListener('click', () => {
     reiniciarJogo();
 });
 
-quadrados.forEach(quadrado => {
+    quadrados.forEach(quadrado => {
     quadrado.addEventListener('click', () => {
         if (!quadrado.textContent) {
             quadrado.textContent = jogadorAtual;
@@ -154,20 +154,19 @@ quadrados.forEach(quadrado => {
                 posicoesDisponiveis.push(i);
             }
         }
-    
-        // Verifica se há um movimento vencedor para a IA
+
         for (let i = 0; i < posicoesDisponiveis.length; i++) {
             let copiaTabuleiro = [...tabuleiro];
-            copiaTabuleiro[posicoesDisponiveis[i]] = 'O'; // Supondo que a IA é 'O'
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'O'; 
             if (verificaVitoria(copiaTabuleiro, 'O')) {
                 return posicoesDisponiveis[i];
             }
         }
     
-        // Verifica se o oponente tem um movimento vencedor e bloqueia
+     
         for (let i = 0; i < posicoesDisponiveis.length; i++) {
             let copiaTabuleiro = [...tabuleiro];
-            copiaTabuleiro[posicoesDisponiveis[i]] = 'X'; // Supondo que o oponente é 'X'
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'X'; 
             if (verificaVitoria(copiaTabuleiro, 'X')) {
                 return posicoesDisponiveis[i];
             }
@@ -191,7 +190,7 @@ quadrados.forEach(quadrado => {
     }
     
     function verificaVitoria(tabuleiro, jogador) {
-        // Adicione aqui a lógica para verificar se um jogador ganhou
+
     }
     
     
