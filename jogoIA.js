@@ -143,21 +143,59 @@ quadrados.forEach(quadrado => {
         });
     });
 
-function movimentoIA(tabuleiro) {
-    let posicoesDisponiveis = [];
-    for (let i = 0; i < tabuleiro.length; i++) {
-        if (tabuleiro[i] === '') {
-            posicoesDisponiveis.push(i);
+    function movimentoIA(tabuleiro) {
+        let posicoesDisponiveis = [];
+        let quinas = [0, 2, 6, 8];
+        let meio = [1, 3, 5, 7];
+        let centro = [4];
+    
+        for (let i = 0; i < tabuleiro.length; i++) {
+            if (tabuleiro[i] === '') {
+                posicoesDisponiveis.push(i);
+            }
+        }
+    
+        // Verifica se há um movimento vencedor para a IA
+        for (let i = 0; i < posicoesDisponiveis.length; i++) {
+            let copiaTabuleiro = [...tabuleiro];
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'O'; // Supondo que a IA é 'O'
+            if (verificaVitoria(copiaTabuleiro, 'O')) {
+                return posicoesDisponiveis[i];
+            }
+        }
+    
+        // Verifica se o oponente tem um movimento vencedor e bloqueia
+        for (let i = 0; i < posicoesDisponiveis.length; i++) {
+            let copiaTabuleiro = [...tabuleiro];
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'X'; // Supondo que o oponente é 'X'
+            if (verificaVitoria(copiaTabuleiro, 'X')) {
+                return posicoesDisponiveis[i];
+            }
+        }
+    
+        let quinasDisponiveis = quinas.filter(posicao => posicoesDisponiveis.includes(posicao));
+        let meioDisponivel = meio.filter(posicao => posicoesDisponiveis.includes(posicao));
+        let centroDisponivel = centro.filter(posicao => posicoesDisponiveis.includes(posicao));
+    
+        if (quinasDisponiveis.length > 0) {
+            let indiceAleatorio = Math.floor(Math.random() * quinasDisponiveis.length);
+            return quinasDisponiveis[indiceAleatorio];
+        } else if (centroDisponivel.length > 0) {
+            return centroDisponivel[0];
+        } else if (meioDisponivel.length > 0) {
+            let indiceAleatorio = Math.floor(Math.random() * meioDisponivel.length);
+            return meioDisponivel[indiceAleatorio];
+        } else {
+            return -1;
         }
     }
-
-    if (posicoesDisponiveis.length > 0) {
-        let indiceAleatorio = Math.floor(Math.random() * posicoesDisponiveis.length);
-        return posicoesDisponiveis[indiceAleatorio];
-    } else {
-        return -1;
+    
+    function verificaVitoria(tabuleiro, jogador) {
+        // Adicione aqui a lógica para verificar se um jogador ganhou
     }
-}
+    
+    
+    
 
 
 function reiniciarJogo() {
