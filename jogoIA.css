@@ -6,8 +6,7 @@
 }
 
 body {
-    background-color: rgb(252, 252, 15);
-    
+    background: linear-gradient(#fffb00 , #fffc57 , #fffecf); 
 }
 
 .botao-modos {
