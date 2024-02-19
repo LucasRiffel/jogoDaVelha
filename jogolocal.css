@@ -6,10 +6,9 @@
 }
 
 body {
-    background-color: rgb(252, 252, 15);
-    
+    background: linear-gradient(#fffb00 , #fffc57 , #fffecf); 
 }
-
+    
 .botao-modos {
     display: flex;
     align-items: center;
@@ -19,7 +18,8 @@ body {
     padding: 15px;
     background-color: rgba(251, 253, 253, 0.6);
     border: 1px solid black;
-    height: 30px;
+    height: 35px;
+    width: 100px;
     color: black;   
 }
 
@@ -34,11 +34,16 @@ body {
 
 .botao-tela-cheia {
     color: black;
-    background-color: rgba(223, 223, 223, 0.6);
+    background-color: rgba(251, 253, 253, 0.6);
     border: 1px solid black;
     border-radius: 5px;
-    height: 30px;
+    height: 35px;
+    width: 100px;
     padding: 2px;
+}
+
+.botao-tela-cheia:hover {
+    cursor: pointer;
 }
 
 .divTitulos {
