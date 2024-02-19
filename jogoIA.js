@@ -9,28 +9,32 @@ const somX = new Audio('./audio/audio-x-o.wav');
 const somO = new Audio('./audio/audio-x-o.wav');
 
 function fazerMovimentoIA() {
-    const index = movimentoIA(Array.from(quadrados).map(cell => cell.textContent));
-    if (index >= 0 && index < quadrados.length) {
-        console.log(quadrados[index]);
-        quadrados[index].textContent = 'O';
-        reproduzirSom();
-    }
-    if (verificarVencedor()) {
-        placarO++;
-        atualizarPlacar();
-        alert('A IA venceu!');
-        reiniciarJogo();
-    } else if (verificarEmpate()) {
-        placarVelhas++;
-        atualizarPlacar();
-        alert('Deu velha!');
-        reiniciarJogo();
-    } else {
-        jogadorAtual = 'X';
-        atualizarJogadaAtual();
-    }
-}
+    const delay = Math.random() * 3000;
+    setTimeout(() => {
+        const index = movimentoIA(Array.from(quadrados).map(cell => cell.textContent));
+        if (index >= 0 && index < quadrados.length) {
+            console.log(quadrados[index]);
+            quadrados[index].textContent = 'O';
+            reproduzirSom();
 
+            if (verificarVencedor()) {
+                placarO++;
+                atualizarPlacar();
+                alert('A IA venceu!');
+                reiniciarJogo();
+            } else if (verificarEmpate()) {
+                placarVelhas++;
+                atualizarPlacar();
+                alert('Deu velha!');
+                reiniciarJogo();
+            } else {
+                jogadorAtual = 'X';
+                atualizarJogadaAtual();
+            }
+        }
+    },  delay
+    , console.log(delay));
+}
 const combinacoesVitoria = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -154,19 +158,18 @@ botaoReiniciar.addEventListener('click', () => {
                 posicoesDisponiveis.push(i);
             }
         }
-
+    
         for (let i = 0; i < posicoesDisponiveis.length; i++) {
             let copiaTabuleiro = [...tabuleiro];
-            copiaTabuleiro[posicoesDisponiveis[i]] = 'O'; 
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'O';
             if (verificaVitoria(copiaTabuleiro, 'O')) {
                 return posicoesDisponiveis[i];
             }
         }
     
-     
         for (let i = 0; i < posicoesDisponiveis.length; i++) {
             let copiaTabuleiro = [...tabuleiro];
-            copiaTabuleiro[posicoesDisponiveis[i]] = 'X'; 
+            copiaTabuleiro[posicoesDisponiveis[i]] = 'X';
             if (verificaVitoria(copiaTabuleiro, 'X')) {
                 return posicoesDisponiveis[i];
             }
@@ -179,23 +182,38 @@ botaoReiniciar.addEventListener('click', () => {
         if (quinasDisponiveis.length > 0) {
             let indiceAleatorio = Math.floor(Math.random() * quinasDisponiveis.length);
             return quinasDisponiveis[indiceAleatorio];
-        } else if (centroDisponivel.length > 0) {
-            return centroDisponivel[0];
         } else if (meioDisponivel.length > 0) {
             let indiceAleatorio = Math.floor(Math.random() * meioDisponivel.length);
             return meioDisponivel[indiceAleatorio];
+        } else if (centroDisponivel.length > 0) {
+            return centroDisponivel[0];
         } else {
             return -1;
         }
     }
     
     function verificaVitoria(tabuleiro, jogador) {
-
+        const linhasVitoria = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+    
+        for (let linha of linhasVitoria) {
+            const [a, b, c] = linha;
+            if (tabuleiro[a] === jogador && tabuleiro[b] === jogador && tabuleiro[c] === jogador) {
+                return true;
+            }
+        }
+        return false;
     }
     
     
-    
-
 
 function reiniciarJogo() {
     jogadorAtual = 'X';
