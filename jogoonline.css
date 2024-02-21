@@ -1,7 +1,7 @@
 body {
     padding: 0px;
     margin: 0px;
-    background-color: rgb(252, 252, 15);
+    background: linear-gradient(#0ffff3 , #57fff7 , #f5f5f5);
 }
 
 .botao-modos {
