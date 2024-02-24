@@ -1,7 +1,8 @@
 body {
     padding: 0px;
     margin: 0px;
-    background: linear-gradient(#0ffff3 , #57fff7 , #f5f5f5);
+    background: linear-gradient(#fffb00 , #fffc57 , #fffecf); 
+    height: 99.8vh;
 }
 
 .botao-modos {
